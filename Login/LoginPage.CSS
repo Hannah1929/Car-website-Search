@@ -1,6 +1,6 @@
 /* Grundlayout */
 body {
-    background: linear-gradient(135deg, #e0eafc, #cfdef3);
+    background: white;
     font-family: 'Arial', sans-serif;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: #b3353553;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -46,7 +46,7 @@ body {
 
 /* Hover-Effekt auf Buttons */
 #ShowLoginPage:hover, #ShowNewUserPage:hover {
-    background-color: #007bff;
+    background-color: #B43737;
     color: white;
 }
 
@@ -83,7 +83,7 @@ label {
 button {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
+    background-color: #B43737;
     color: white;
     border: none;
     border-radius: 8px;
@@ -94,7 +94,7 @@ button {
 
 /* Button Hover */
 button:hover {
-    background-color: #0056b3;
+    background-color: #B43737;
 }
 
 /* Aktiviertes Formular */

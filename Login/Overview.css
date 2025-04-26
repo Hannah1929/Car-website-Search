@@ -1,0 +1,128 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: #b33535;
+}
+
+/* Filter Container */
+#filterContainer {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#searchInput {
+    padding: 10px;
+    font-size: 16px;
+    width: 300px;
+    border: 2px solid #b33535;
+    border-radius: 5px;
+}
+
+#filterContainer input:focus {
+    outline: none;
+    border-color: #b33535;
+}
+
+/* Car Container */
+#carContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.car {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.car img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.car:hover {
+    transform: translateY(-10px);
+}
+
+.car h3 {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.car p {
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Pagination */
+#paginationContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#prevButton, #nextButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: #b33535;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+}
+
+#prevButton:disabled, #nextButton:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+#prevButton:hover, #nextButton:hover {
+    background-color: #4c1616;
+}
+
+#pageNumber {
+    font-size: 16px;
+    margin: 0 10px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    #searchInput {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    #carContainer {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
+@media screen and (max-width: 480px) {
+    #carContainer {
+        grid-template-columns: 1fr;
+    }
+}

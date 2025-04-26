@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Übersicht</title>
+    <link rel="stylesheet" href="Overview.css">
+</head>
+<body>
+    <header>
+        <h1>Finde dein Auto</h1>
+        <div id="filterContainer">
+            <input type="text" id="searchInput" placeholder="Suche nach Titel oder Klasse..." oninput="filterCars()">
+        </div>
+    </header>
+
+    <main id="carContainer">
+        <!-- Autos werden hier eingefügt mit JavaScript -->
+    </main>
+
+    <!-- Paginierung -->
+    <div id="paginationContainer">
+        <button id="prevButton" onclick="changePage('prev')">Zurück</button>
+        <span id="pageNumber">Seite 1 von 1</span>
+        <button id="nextButton" onclick="changePage('next')">Weiter</button>
+    </div>
+
+    <script src="Overview.js" defer></script>
+</body>
+</html>
