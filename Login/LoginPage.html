@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="LoginPage.CSS">
+</head>
+<body>
+    <div>
+        <img id="Logo" src="http://127.0.0.1:3000/Resources/ChatGPT Image 26. Apr. 2025, 14_14_08.png">
+    </div>
+    <div class="ChoosePage">
+        <div id="ShowLoginPage">Login</div>
+        <div id="ShowNewUserPage">Neuer<br>Benutzer</div>
+    </div>
+    <div id="LoginForm">
+        <form action="/login" method="post">
+            <div class="formblock">
+                <label for="username">Benutzername:</label><br>
+                <input type="text" id="username" name="username" required><br><br>
+            </div>
+            <div class="formblock">
+                <label for="password">Passwort:</label><br>
+            <input type="password" id="password" name="password" required><br><br>
+            </div>
+        
+            <button type="submit">Einloggen</button>
+          </form>
+    </div>
+    <div id="NewUserForm">
+        <form action="/create-user" method="post">
+            <div class="formblock">
+                <label for="username">E-Mail:</label><br>
+                <input type="text" id="username" name="username" required><br><br>
+            </div>
+            <div class="formblock">
+                <label for="email">E-Mail:</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+            </div>
+            <div class="formblock">
+                <label for="password">Passwort:</label><br>
+            <input type="password" id="password" name="password" required><br><br>
+            </div>
+            <div class="formblock">
+                <label for="confirm_password">Passwort bestätigen:</label><br>
+            <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+            </div>
+            
+            <button type="submit">Benutzer erstellen</button>
+          </form>
+    </div>
+    
+    <script src="LoginPage.JS"></script>
+</body>
+</html>

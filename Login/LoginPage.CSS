@@ -1,0 +1,104 @@
+/* Grundlayout */
+body {
+    background: linear-gradient(135deg, #e0eafc, #cfdef3);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 30px;
+}
+
+/* Logo */
+#Logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+/* Bereich für Auswahl (Login / Neuer Benutzer) */
+.ChoosePage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+/* Buttons für die Auswahl */
+#ShowLoginPage, #ShowNewUserPage {
+    padding: 20px 40px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+    height: 100%;
+}
+
+
+
+
+/* Hover-Effekt auf Buttons */
+#ShowLoginPage:hover, #ShowNewUserPage:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Formularblöcke */
+#LoginForm, #NewUserForm {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    display: none; /* Wichtig: am Anfang versteckt */
+}
+
+/* Eingabefelder */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+/* Buttons in den Formularen */
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Button Hover */
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Aktiviertes Formular */
+#LoginForm.active,
+#NewUserForm.active {
+    display: block;
+}
