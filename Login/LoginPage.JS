@@ -48,6 +48,7 @@ async function loadMockData() {
     }
 }
 
+// Hauptlogik
 document.addEventListener("DOMContentLoaded", async function() {
     try {
         await loadMockData(); 
@@ -67,11 +68,13 @@ document.addEventListener("DOMContentLoaded", async function() {
             hideElement(newUserFormElement);
         });
 
+        
         showNewUserPageButton.addEventListener("click", () => {
             showElement(newUserFormElement);
             hideElement(loginFormElement);
         });
     } else {
+        console.error("Fehler: Benutzerverwaltungs-Elemente nicht gefunden.");
         console.error("Fehler: Benutzerverwaltungs-Elemente nicht gefunden.");
         return;
     }
