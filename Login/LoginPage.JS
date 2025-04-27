@@ -1,4 +1,3 @@
-// LoginPage.JS
 
 // Hilfsfunktionen
 async function fetchData(url) {
