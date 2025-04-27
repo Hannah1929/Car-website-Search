@@ -1,120 +1,154 @@
-let cars = [];
-let MOCK_DATA = []; // Stelle sicher, dass diese Variable mit deinen Benutzerdaten gefüllt wird (z.B. in einem separaten <script>-Tag)
+// LoginPage.JS
 
-async function loadMockData() {
+// Hilfsfunktionen
+async function fetchData(url) {
     try {
-        const response = await fetch('cars.json');
+        const response = await fetch(url);
         if (!response.ok) {
-            throw new Error('Netzwerkantwort war nicht ok');
+            throw new Error(`Fehler beim Abrufen von ${url}: ${response.status} - ${response.statusText}`);
         }
-        cars = await response.json();
-        console.log("Auto-Daten erfolgreich geladen:", cars);
-        // Hier könntest du Code einfügen, um die Autodaten anzuzeigen, falls das noch relevant ist
+        return response.json();
     } catch (error) {
-        console.error("Fehler beim Laden der Auto-Daten:", error);
+        console.error(error);
+        alert("Ein Fehler ist aufgetreten. Bitte versuche es später noch einmal.");
+        throw error; // Wichtig: Fehler weiterwerfen
     }
 }
 
+function getFormData(form) {
+    const formData = new FormData(form);
+    const data = {};
+    for (const [key, value] of formData.entries()) {
+        data[key] = value;
+    }
+    return data;
+}
+
+function clearForm(form) {
+    form.reset();
+}
+
+function hideElement(element) {
+    element.style.display = "none";
+}
+
+function showElement(element) {
+    element.style.display = "block";
+}
+
+// Globale Variable für Benutzerdaten
+let MOCK_DATA = []; // Stelle sicher, dass MOCK_DATA-2.json mit deinen Benutzerdaten gefüllt ist
+
+// Daten laden
+async function loadMockData() {
+    try {
+        MOCK_DATA = await fetchData('MOCK_DATA-2.json');
+        console.log("Benutzerdaten erfolgreich geladen:", MOCK_DATA);
+    } catch (error) {
+        // Fehlerbehandlung erfolgt in fetchData
+        // Hier ggf. weitere spezifische Behandlung für das Laden der Benutzerdaten
+    }
+}
+
+// Hauptlogik
 document.addEventListener("DOMContentLoaded", async function() {
-    await loadMockData(); // Nur einmal aufrufen
-
-    const showLoginPage = document.getElementById("ShowLoginPage");
-    const showNewUserPage = document.getElementById("ShowNewUserPage");
-    const loginForm = document.getElementById("LoginForm");
-    const newUserForm = document.getElementById("NewUserForm");
-
-    if (showLoginPage && showNewUserPage && loginForm && newUserForm) {
-        showLoginPage.addEventListener("click", function() {
-            loginForm.style.display = "block";
-            newUserForm.style.display = "none";
-        });
-
-        showNewUserPage.addEventListener("click", function() {
-            newUserForm.style.display = "block";
-            loginForm.style.display = "none";
-        });
-    } else {
-        console.error("Ein oder mehrere benötigte Elemente für die Benutzerverwaltung wurden nicht gefunden.");
+    try {
+        await loadMockData(); // Benutzerdaten laden
+    } catch (error) {
+        // Fehler wurde bereits in fetchData behandelt, hier ggf. weitere Aktionen
         return;
     }
 
-    const newUserFormElement = document.querySelector('#NewUserForm form');
-    if (newUserFormElement) {
-        newUserFormElement.addEventListener("submit", function(event) {
-            event.preventDefault();
+    const showLoginPageButton = document.getElementById("ShowLoginPage");
+    const showNewUserPageButton = document.getElementById("ShowNewUserPage");
+    const loginFormElement = document.getElementById("LoginForm");
+    const newUserFormElement = document.getElementById("NewUserForm");
 
-            const emailInput = newUserForm.querySelector('input[name="email"]');
-            const passwordInput = newUserForm.querySelector('input[name="password"]');
-            const confirmPasswordInput = newUserForm.querySelector('input[name="confirm_password"]');
+    // Seitenwechsel-Logik
+    if (showLoginPageButton && showNewUserPageButton && loginFormElement && newUserFormElement) {
+        showLoginPageButton.addEventListener("click", () => {
+            showElement(loginFormElement);
+            hideElement(newUserFormElement);
+        });
 
-            if (!emailInput || !passwordInput || !confirmPasswordInput) {
-                console.error("Ein oder mehrere Eingabefelder im Registrierungsformular wurden nicht gefunden.");
-                return;
-            }
-
-            const email = emailInput.value;
-            const password = passwordInput.value;
-            const confirmPassword = confirmPasswordInput.value;
-
-            if (password !== confirmPassword) {
-                alert("Passwörter stimmen nicht überein!");
-                return;
-            }
-
-            const existingUser = MOCK_DATA.find(user => user.email === email);
-            if (existingUser) {
-                alert("E-Mail wird bereits verwendet!");
-                return;
-            }
-
-            const newUser = {
-                id: MOCK_DATA.length + 1,
-                first_name: "",
-                last_name: "",
-                email: email,
-                password: password,
-                address: "",
-                favorite_cars: []
-            };
-
-            MOCK_DATA.push(newUser);
-            alert("Benutzer erfolgreich erstellt!");
-            console.log("Aktueller Stand der User-Daten:", MOCK_DATA);
-
-            newUserFormElement.reset();
-            if (showLoginPage) {
-                showLoginPage.click();
-            }
+        showNewUserPageButton.addEventListener("click", () => {
+            showElement(newUserFormElement);
+            hideElement(loginFormElement);
         });
     } else {
-        console.error("Das Registrierungsformular wurde nicht gefunden.");
+        console.error("Fehler: Benutzerverwaltungs-Elemente nicht gefunden.");
+        return;
     }
 
-    const loginFormElement = document.querySelector('#LoginForm form');
-    if (loginFormElement) {
-        loginFormElement.addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            const usernameInput = loginForm.querySelector('input[name="username"]');
-            const passwordInput = loginForm.querySelector('input[name="password"]');
-
-            if (!usernameInput || !passwordInput) {
-                console.error("Ein oder mehrere Eingabefelder im Anmeldeformular wurden nicht gefunden.");
-                return;
-            }
-
-            const username = usernameInput.value;
-            const password = passwordInput.value;
-
-            const user = MOCK_DATA.find(user => user.email === username && user.password === password);
-
-            if (user) {
-                window.location.href = `/Overview/Overview.html?userId=${user.id}`;
-            } else {
-                alert("Benutzername oder Passwort ist falsch!");
-            }
-        });
+    // Registrierungsformular
+    const newUserForm = document.querySelector('#NewUserForm form');
+    if (newUserForm) {
+        newUserForm.addEventListener("submit", handleNewUserSubmit);
     } else {
-        console.error("Das Anmeldeformular wurde nicht gefunden.");
+        console.error("Fehler: Registrierungsformular nicht gefunden.");
+    }
+
+    // Anmeldeformular
+    const loginForm = document.querySelector('#LoginForm form');
+    if (loginForm) {
+        loginForm.addEventListener("submit", handleLoginSubmit);
+    } else {
+        console.error("Fehler: Anmeldeformular nicht gefunden.");
     }
 });
+
+// Handler für das Registrierungsformular
+function handleNewUserSubmit(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = getFormData(form);
+
+    const { email, password, confirm_password } = formData;
+
+    if (password !== confirm_password) {
+        alert("Passwörter stimmen nicht überein!");
+        return;
+    }
+
+    const existingUser = MOCK_DATA.find(user => user.email === email);
+    if (existingUser) {
+        alert("E-Mail wird bereits verwendet!");
+        return;
+    }
+
+    const newUser = {
+        id: MOCK_DATA.length + 1,
+        first_name: "",
+        last_name: "",
+        email: email,
+        password: password,
+        address: "",
+        favorite_cars: []
+    };
+
+    MOCK_DATA.push(newUser);
+    alert("Benutzer erfolgreich erstellt!");
+    console.log("Aktueller Stand der User-Daten:", MOCK_DATA);
+
+    clearForm(form);
+    document.getElementById("ShowLoginPage").click(); // Verwende die Konstante
+}
+
+// Handler für das Anmeldeformular
+function handleLoginSubmit(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const formData = getFormData(form);
+
+    const { username, password } = formData;
+
+    const user = MOCK_DATA.find(user => user.email === username && user.password === password);
+
+    if (user) {
+        window.location.href = `/Overview/Overview.html?userId=${user.id}`;
+    } else {
+        alert("Benutzername oder Passwort ist falsch!");
+    }
+}

@@ -61,6 +61,9 @@ function displayCars(page) {
             <h3>${car.title || 'Unbekanntes Auto'}</h3>
             <p><strong>Klasse:</strong> ${car.class || 'Unbekannt'}</p>
             ${car.start_production ? `<p><strong>Produktionsstart:</strong> ${car.start_production}</p>` : ''}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+            <path d="M12 4.248c-3.148-5.402-12-3.825-12 2.944 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.769-8.852-8.346-12-2.944z"/>
+            </svg>
         `;
         container.appendChild(carDiv);
     });
