@@ -29,10 +29,14 @@
           </form>
     </div>
     <div id="NewUserForm">
-        <form action="/create-user" method="post">
+        <form id="newUserForm" onsubmit="handleNewUserSubmit(event)">
             <div class="formblock">
-                <label for="username">E-Mail:</label><br>
-                <input type="text" id="username" name="username" required><br><br>
+                <label for="Firstname">Vorname:</label><br>
+                <input type="text" id="username" name="Firstname" required><br><br>
+            </div>
+            <div class="formblock">
+                <label for="Lastname">Nachname:</label><br>
+                <input type="text" id="Lastname" name="Lastname" required><br><br>
             </div>
             <div class="formblock">
                 <label for="email">E-Mail:</label><br>

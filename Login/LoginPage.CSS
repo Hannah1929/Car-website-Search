@@ -1,4 +1,3 @@
-/* Grundlayout */
 body {
     background: white;
     font-family: 'Arial', sans-serif;
@@ -11,14 +10,12 @@ body {
     padding-top: 30px;
 }
 
-/* Logo */
 #Logo {
     width: 200px;
     height: auto;
     margin-bottom: 30px;
 }
 
-/* Bereich für Auswahl (Login / Neuer Benutzer) */
 .ChoosePage {
     display: flex;
     justify-content: center;
@@ -30,7 +27,6 @@ body {
     margin-bottom: 30px;
 }
 
-/* Buttons für die Auswahl */
 #ShowLoginPage, #ShowNewUserPage {
     padding: 20px 40px;
     cursor: pointer;
@@ -41,26 +37,20 @@ body {
     height: 100%;
 }
 
-
-
-
-/* Hover-Effekt auf Buttons */
 #ShowLoginPage:hover, #ShowNewUserPage:hover {
     background-color: #B43737;
     color: white;
 }
 
-/* Formularblöcke */
 #LoginForm, #NewUserForm {
     background-color: white;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 300px;
-    display: none; /* Wichtig: am Anfang versteckt */
-}
+    display: none; 
 
-/* Eingabefelder */
+/* Inputfields */
 input[type="text"],
 input[type="password"],
 input[type="email"] {
@@ -73,13 +63,11 @@ input[type="email"] {
     box-sizing: border-box;
 }
 
-/* Labels */
 label {
     font-weight: bold;
     color: #555;
 }
 
-/* Buttons in den Formularen */
 button {
     width: 100%;
     padding: 12px;
@@ -92,12 +80,10 @@ button {
     transition: background-color 0.3s;
 }
 
-/* Button Hover */
 button:hover {
     background-color: #B43737;
 }
 
-/* Aktiviertes Formular */
 #LoginForm.active,
 #NewUserForm.active {
     display: block;

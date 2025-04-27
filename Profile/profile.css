@@ -1,0 +1,96 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fc;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1, h2 {
+    color: #b33535; 
+    font-weight: bold;
+}
+
+.profile-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow: hidden;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #b33535; 
+}
+
+.profile-details {
+    margin-bottom: 40px;
+}
+
+.profile-details h2 {
+    font-size: 1.8rem;
+    color: #b33535; 
+    margin-bottom: 20px;
+}
+
+.profile-details p {
+    font-size: 1.1rem;
+    color: #555; 
+    margin: 10px 0;
+}
+
+.favorite-cars h2 {
+    font-size: 1.8rem;
+    color: #b33535; 
+    margin-bottom: 20px;
+}
+
+.favorite-cars {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; 
+}
+
+.car-card {
+    width: 200px;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.car-card:hover {
+    transform: scale(1.05);
+}
+
+.car-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.car-card h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.car-card p {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+

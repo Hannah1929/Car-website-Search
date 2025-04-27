@@ -36,26 +36,23 @@ function showElement(element) {
     element.style.display = "block";
 }
 
-// Globale Variable für Benutzerdaten
-let MOCK_DATA = []; // Stelle sicher, dass MOCK_DATA-2.json mit deinen Benutzerdaten gefüllt ist
+// global
+let MOCK_DATA = []; 
 
-// Daten laden
+// Load data
 async function loadMockData() {
     try {
-        MOCK_DATA = await fetchData('MOCK_DATA-2.json');
+        MOCK_DATA = await fetchData('/Car-website-Search/Login/MOCK_DATA-2.json');
         console.log("Benutzerdaten erfolgreich geladen:", MOCK_DATA);
     } catch (error) {
-        // Fehlerbehandlung erfolgt in fetchData
-        // Hier ggf. weitere spezifische Behandlung für das Laden der Benutzerdaten
+       //error handling, mostly already done in 
     }
 }
 
-// Hauptlogik
 document.addEventListener("DOMContentLoaded", async function() {
     try {
-        await loadMockData(); // Benutzerdaten laden
+        await loadMockData(); 
     } catch (error) {
-        // Fehler wurde bereits in fetchData behandelt, hier ggf. weitere Aktionen
         return;
     }
 
@@ -64,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     const loginFormElement = document.getElementById("LoginForm");
     const newUserFormElement = document.getElementById("NewUserForm");
 
-    // Seitenwechsel-Logik
+    // Page change logic
     if (showLoginPageButton && showNewUserPageButton && loginFormElement && newUserFormElement) {
         showLoginPageButton.addEventListener("click", () => {
             showElement(loginFormElement);
@@ -80,7 +77,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         return;
     }
 
-    // Registrierungsformular
+    // Registration form
     const newUserForm = document.querySelector('#NewUserForm form');
     if (newUserForm) {
         newUserForm.addEventListener("submit", handleNewUserSubmit);
@@ -88,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         console.error("Fehler: Registrierungsformular nicht gefunden.");
     }
 
-    // Anmeldeformular
+    // Login Form
     const loginForm = document.querySelector('#LoginForm form');
     if (loginForm) {
         loginForm.addEventListener("submit", handleLoginSubmit);
@@ -97,43 +94,73 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
 });
 
-// Handler für das Registrierungsformular
-function handleNewUserSubmit(event) {
+async function handleNewUserSubmit(event) { // Does not work yet -> problems with PHP 
     event.preventDefault();
 
     const form = event.target;
-    const formData = getFormData(form);
+    const formData = new FormData(form);
 
-    const { email, password, confirm_password } = formData;
+    const newUser = {
+        first_name: formData.get('Firstname').trim(),
+        last_name: formData.get('Lastname').trim(),
+        email: formData.get('email').trim(),
+        password: formData.get('password'),
+        confirm_password: formData.get('confirm_password')
+    };
 
-    if (password !== confirm_password) {
+    if (!newUser.first_name || !newUser.last_name || !newUser.email || !newUser.password) {
+        alert("Alle Felder müssen ausgefüllt werden!");
+        return;
+    }
+
+    if (newUser.password !== newUser.confirm_password) {
         alert("Passwörter stimmen nicht überein!");
         return;
     }
 
-    const existingUser = MOCK_DATA.find(user => user.email === email);
-    if (existingUser) {
-        alert("E-Mail wird bereits verwendet!");
+    if (!/\S+@\S+\.\S+/.test(newUser.email)) {
+        alert("Bitte eine gültige E-Mail-Adresse eingeben!");
         return;
     }
 
-    const newUser = {
-        id: MOCK_DATA.length + 1,
-        first_name: "",
-        last_name: "",
-        email: email,
-        password: password,
-        address: "",
-        favorite_cars: []
-    };
+    if (newUser.password.length < 6) {
+        alert("Das Passwort muss mindestens 6 Zeichen lang sein!");
+        return;
+    }
 
-    MOCK_DATA.push(newUser);
-    alert("Benutzer erfolgreich erstellt!");
-    console.log("Aktueller Stand der User-Daten:", MOCK_DATA);
-
-    clearForm(form);
-    document.getElementById("ShowLoginPage").click(); // Verwende die Konstante
+    try {
+        const response = await fetch('/Car-website-Search/Login/create-user.php', {
+            method: 'POST',
+            body: JSON.stringify(newUser),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+    
+        const responseText = await response.text(); 
+        console.log("Server-Antwort:", responseText); 
+    
+        const result = JSON.parse(responseText); 
+    
+        if (result.success) {
+            alert('Benutzer erfolgreich erstellt!');
+            form.reset();
+            document.getElementById("ShowLoginPage").click();
+        } else {
+            alert('Fehler: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Fehler:', error);
+        alert('Serverfehler!');
+    }
+    
 }
+
+
+
+
+
+
 
 // Handler für das Anmeldeformular
 function handleLoginSubmit(event) {
@@ -147,7 +174,7 @@ function handleLoginSubmit(event) {
     const user = MOCK_DATA.find(user => user.email === username && user.password === password);
 
     if (user) {
-        window.location.href = `/Overview/Overview.html?userId=${user.id}`;
+        window.location.href = `/Car-website-Search/Overview/Overview.html?userId=${user.id}`;
     } else {
         alert("Benutzername oder Passwort ist falsch!");
     }
