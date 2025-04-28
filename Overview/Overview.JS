@@ -187,4 +187,15 @@ function filterCars() {
             console.log(`Filter angewendet. ${filteredCars.length} Autos gefunden.`);
         }
 
+function changesite(){
+    const urlParams = new URLSearchParams(window.location.search);        
+    const userId = urlParams.get('userId');
+    if (userId) {
+        window.location.href = `/Car-website-Search/Profile/profile.html?userId=${userId}`;
+    } else {
+        alert("Kein User-Id in der URL gefunden.");
+    }
+
+}
+
 loadMockData();

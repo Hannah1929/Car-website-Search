@@ -51,3 +51,14 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Fehler beim Laden der Daten:", error);
     });
 });
+
+function changesite(){
+    const urlParams = new URLSearchParams(window.location.search);        
+    const userId = urlParams.get('userId');
+    if (userId) {
+        window.location.href = `/Car-website-Search/Overview/Overview.html?userId=${userId}`;
+    } else {
+        alert("Kein User-Id in der URL gefunden.");
+    }
+
+}

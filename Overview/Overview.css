@@ -18,6 +18,13 @@ h1 {
 }
 
 /* Filter Container */
+
+.headerdiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
 #filterContainer {
     display: flex;
     justify-content: center;
